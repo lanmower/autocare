@@ -4,7 +4,6 @@ import { Facebook, Instagram, Youtube, MapPin, Phone, Mail, Wrench } from 'lucid
 import config from '../data/config';
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
   
   return (
     <footer className="bg-zinc-900 border-t border-zinc-800">

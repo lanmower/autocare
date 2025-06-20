@@ -1,10 +1,10 @@
-import { BookmarkCheck, ChevronDown, MapPin, Phone, SprayCan as Spray, PenTool as Tool, TrendingUp, Wrench } from 'lucide-react';
+import { SprayCan as Spray, PenTool as Tool, TrendingUp, Wrench } from 'lucide-react';
 
 export type ServiceType = {
   id: string;
   title: string;
   description: string;
-  icon: any;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
 };
 
 export type ProcessStepType = {
