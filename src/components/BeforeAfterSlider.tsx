@@ -78,15 +78,21 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         </span>
       </div>
       
-      {/* Before image (dynamic width) */}
+      {/* Before image (clipped) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0"
         style={{ 
-          backgroundImage: `url(${beforeImage})`, 
-          width: `${sliderPosition}%`,
-          height: '100%',
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
         }}
       >
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${beforeImage})`,
+            width: '100%',
+            height: '100%',
+          }}
+        />
         <span className="absolute top-4 left-4 bg-black bg-opacity-70 text-amber-500 px-3 py-1 text-xs font-semibold rounded">
           {beforeLabel}
         </span>
