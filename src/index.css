@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+
+/* Add custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-zinc-900;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  /* Custom font classes */
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-open-sans {
+    font-family: 'Open Sans', sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .bg-gradient-overlay {
+    background: linear-gradient(to bottom, rgba(24, 24, 27, 0.9), rgba(24, 24, 27, 0.8), rgba(24, 24, 27, 1));
+  }
+  
+  .text-shadow {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Animated underline effect */
+  .hover-underline {
+    position: relative;
+  }
+  
+  .hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #f59e0b, #d97706);
+    transition: width 0.3s ease;
+  }
+  
+  .hover-underline:hover::after {
+    width: 100%;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  /* Custom scrollbar for webkit browsers */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-zinc-800;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700 rounded hover:bg-zinc-600;
+  }
+  
+  /* For Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 #18181b;
+  }
+  
+  /* Animations */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+}
+
+/* Image optimization */
+img {
+  max-width: 100%;
+  display: block;
+  width: auto;
+  height: auto;
+}
