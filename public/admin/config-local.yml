@@ -2,6 +2,9 @@ backend:
   name: git-gateway
   branch: main
 
+# LOCAL DEVELOPMENT ONLY:
+# Uses local decap-server for Git operations (no auth needed)
+# Decap server runs on port 8081 (started by: npm run cms)
 local_backend: true
 
 media_folder: public/images
