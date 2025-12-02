@@ -1,0 +1,61 @@
+#!/bin/bash
+
+echo "🔐 GitHub OAuth Setup for Decap CMS on GitHub Pages"
+echo "======================================================"
+echo ""
+echo "This script will guide you through setting up GitHub OAuth"
+echo "so you can edit content directly on your live site at:"
+echo "https://lanmower.github.io/autocare/admin"
+echo ""
+echo "Step 1: Create GitHub OAuth App"
+echo "================================"
+echo ""
+echo "Opening GitHub OAuth App creation page..."
+echo "Click 'New OAuth App' and fill in:"
+echo ""
+echo "  Application name: AutoCare CMS"
+echo "  Homepage URL: https://lanmower.github.io/autocare"
+echo "  Authorization callback URL: https://api.netlify.com/auth/done"
+echo ""
+
+# Open GitHub OAuth creation page
+gh auth status > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  echo "Opening browser to create OAuth App..."
+  # Provide the direct link
+  echo ""
+  echo "Visit this link to create the OAuth app:"
+  echo "https://github.com/settings/developers"
+  echo ""
+else
+  echo "Please log in with: gh auth login"
+  exit 1
+fi
+
+echo ""
+echo "Step 2: Set Up Netlify OAuth (Free)"
+echo "===================================="
+echo ""
+echo "After creating the OAuth App, you'll need to register it with Netlify:"
+echo ""
+echo "1. Go to: https://app.netlify.com/user/settings/applications"
+echo "   (Sign up for free if needed)"
+echo ""
+echo "2. Click 'New OAuth Application' (or equivalent)"
+echo ""
+echo "3. Enter your OAuth App details:"
+echo "   - GitHub Client ID (from step above)"
+echo "   - GitHub Client Secret (from step above)"
+echo "   - Redirect URL: https://api.netlify.com/auth/done"
+echo ""
+echo ""
+echo "Step 3: Test Your Setup"
+echo "======================="
+echo ""
+echo "Once complete, visit:"
+echo "https://lanmower.github.io/autocare/admin"
+echo ""
+echo "You should see a 'Login with GitHub' button."
+echo ""
+echo "💡 Pro Tip: For local development, run ./start-cms.sh"
+echo ""
