@@ -5,26 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/autocare/favicon.ico" />
 </head>
 <body>
-  <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
   <script>
-    // Configure CMS to use local development config
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       window.CMS_CONFIG = {
         load_config_file: true,
-        config_file_path: '/admin/config-local.yml'
+        config_file_path: '/autocare/admin/config-local.yml'
       };
-      console.log('CMS configured for local development');
     } else {
       window.CMS_CONFIG = {
         load_config_file: true,
-        config_file_path: '/admin/config.yml'
+        config_file_path: '/autocare/admin/config.yml'
       };
-      console.log('CMS configured for production');
     }
   </script>
 </body>
