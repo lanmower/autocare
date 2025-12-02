@@ -1,0 +1,13 @@
+{
+  "name": "claude-mcp-client",
+  "version": "1.0.0",
+  "description": "MCP client for interacting with Claude.ai",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.37"
+  }
+}

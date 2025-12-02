@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useConfig } from '../hooks/useConfig';
 
 type BeforeAfterSliderProps = {
   beforeImage: string;
@@ -11,10 +12,15 @@ type BeforeAfterSliderProps = {
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   beforeImage,
   afterImage,
-  beforeLabel = 'BEFORE',
-  afterLabel = 'AFTER',
+  beforeLabel,
+  afterLabel,
   className = '',
 }) => {
+  const { config } = useConfig();
+  
+  // Use config values as fallbacks if props not provided
+  const displayBeforeLabel = beforeLabel || config.labels.before;
+  const displayAfterLabel = afterLabel || config.labels.after;
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -74,7 +80,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         style={{ backgroundImage: `url(${afterImage})` }}
       >
         <span className="absolute top-4 right-4 bg-black bg-opacity-70 text-amber-500 px-3 py-1 text-xs font-semibold rounded">
-          {afterLabel}
+          {displayAfterLabel}
         </span>
       </div>
       
@@ -94,7 +100,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           }}
         />
         <span className="absolute top-4 left-4 bg-black bg-opacity-70 text-amber-500 px-3 py-1 text-xs font-semibold rounded">
-          {beforeLabel}
+          {displayBeforeLabel}
         </span>
       </div>
       

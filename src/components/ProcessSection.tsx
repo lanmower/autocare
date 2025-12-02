@@ -1,9 +1,35 @@
 import React from 'react';
 import Container from './ui/Container';
 import SectionHeading from './ui/SectionHeading';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 
 const ProcessSection: React.FC = () => {
+  const { config, loading } = useConfig();
+
+  if (loading) {
+    return (
+      <section id="process" className="py-24 bg-zinc-900">
+        <Container>
+          <div className="animate-pulse text-center mb-16">
+            <div className="h-8 bg-zinc-700 rounded w-1/3 mx-auto mb-4"></div>
+            <div className="h-4 bg-zinc-700 rounded w-1/2 mx-auto"></div>
+          </div>
+          <div className="space-y-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="flex items-start space-x-4">
+                <div className="w-16 h-16 bg-zinc-700 rounded-full animate-pulse"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-6 bg-zinc-700 rounded w-1/3"></div>
+                  <div className="h-4 bg-zinc-700 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section id="process" className="py-24 bg-zinc-900 relative overflow-hidden">
       {/* Background decoration */}
@@ -26,8 +52,8 @@ const ProcessSection: React.FC = () => {
       
       <Container className="relative z-10">
         <SectionHeading 
-          title="Our Restoration Process"
-          subtitle="A methodical approach to ensure quality and precision in every project"
+          title={config.sections.process.title}
+          subtitle={config.sections.process.subtitle}
         />
         
         <div className="max-w-5xl mx-auto">

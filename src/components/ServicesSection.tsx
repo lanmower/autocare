@@ -1,16 +1,26 @@
 import React from 'react';
 import Container from './ui/Container';
 import SectionHeading from './ui/SectionHeading';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 
 const ServicesSection: React.FC = () => {
+  const { config, loading, cmsDataLoaded } = useConfig();
+
   return (
     <section id="services" className="py-24 bg-zinc-800">
       <Container>
         <SectionHeading 
-          title="Specialized Services" 
-          subtitle="Expert craftsmanship for every aspect of auto body restoration"
+          title={config.sections.services.title} 
+          subtitle={config.sections.services.subtitle}
         />
+        
+        {/* Show loading state if CMS data is still loading */}
+        {loading && config.services.length === 0 && (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div>
+            <p className="text-zinc-400 mt-4">Loading services...</p>
+          </div>
+        )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           {config.services.map((service) => {
@@ -38,7 +48,7 @@ const ServicesSection: React.FC = () => {
                     href="#contact"
                     className="inline-flex items-center text-amber-500 mt-6 group-hover:text-amber-400 transition-colors"
                   >
-                    <span className="mr-2">Learn More</span>
+                    <span className="mr-2">{config.labels.learnMore}</span>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M6.5 12.5L11 8L6.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -48,6 +58,13 @@ const ServicesSection: React.FC = () => {
             );
           })}
         </div>
+        
+        {/* Show data source indicator in development */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="text-center mt-8 text-xs text-zinc-500">
+            Data source: {cmsDataLoaded ? 'CMS' : 'Fallback'} • Services: {config.services.length}
+          </div>
+        )}
       </Container>
     </section>
   );

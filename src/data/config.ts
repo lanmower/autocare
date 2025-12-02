@@ -1,4 +1,5 @@
 import { SprayCan as Spray, PenTool as Tool, TrendingUp, Wrench } from 'lucide-react';
+import { getUnifiedConfig, fallbackUnifiedConfig } from './unifiedConfig';
 
 export type ServiceType = {
   id: string;
@@ -35,36 +36,100 @@ export type BusinessHoursType = {
   hours: string;
 };
 
-const config = {
+// Fallback configuration for backward compatibility
+// This will be used if the unified config system fails
+const fallbackConfig = {
+  branding: {
+    slogan: "your restoration is our care",
+    name: "AutoCare",
+    nameParts: {
+      first: "Auto",
+      second: "Care"
+    }
+  },
+
+  navigation: {
+    items: [
+      { label: 'Home', href: '#home' },
+      { label: 'Services', href: '#services' },
+      { label: 'Process', href: '#process' },
+      { label: 'Portfolio', href: '#portfolio' },
+      { label: 'Testimonials', href: '#testimonials' },
+      { label: 'Contact', href: '#contact' }
+    ],
+    buttons: {
+      quote: "Get a Quote",
+      contact: "Contact Us",
+      toggleMenu: "Toggle menu"
+    }
+  },
+
+  labels: {
+    scrollDown: "Scroll down",
+    yearsExperience: "Years Experience",
+    learnMore: "Learn More",
+    requestSimilarWork: "Request Similar Work",
+    sendMessage: "Send Message",
+    selectService: "Select a service",
+    other: "Other",
+    before: "BEFORE",
+    after: "AFTER"
+  },
+  
   siteMetadata: {
     title: "AutoCare | Umtentweni",
     description: "Specialized auto body restoration services in Umtentweni. Expert panel beating, custom fabrication, and precision restoration for classic and modern vehicles.",
     keywords: "auto restoration, panel beating, Umtentweni, car restoration, custom fabrication, auto body repair",
     siteUrl: "https://autocare.co.za",
-    phone: "+27 39 695 0122",
+    phone: "+27 64 163 7521",
     email: "info@autocare.co.za",
     address: "17 Marine Drive, Umtentweni, 4235, South Africa",
     googleMapsUrl: "https://maps.google.com/?q=-30.7196,30.4554",
   },
   
+  sections: {
+    services: {
+      title: "Specialized Services",
+      subtitle: "Expert craftsmanship for every aspect of auto body restoration"
+    },
+    process: {
+      title: "Our Restoration Process",
+      subtitle: "A methodical approach to ensure quality and precision in every project"
+    },
+    portfolio: {
+      title: "Our Portfolio",
+      subtitle: "Explore our restoration and repair projects"
+    },
+    testimonials: {
+      title: "Client Testimonials",
+      subtitle: "What our clients say about our restoration work"
+    },
+    contact: {
+      title: "Contact Information",
+      formTitle: "Send Us a Message"
+    }
+  },
+
   hero: {
     title: "Precision Auto Body Restoration",
     subtitle: "Bringing vehicles back to their original glory with expert craftsmanship",
-    description: "South Coast's premier auto body restoration specialists with over 25 years of experience in reviving classic and modern vehicles.",
+    description: "Personalized auto body restoration with direct owner involvement. Every vehicle receives individual attention and custom solutions tailored to your specific needs and preferences.",
     ctaText: "View Our Work",
     ctaLink: "#portfolio",
     backgroundImage: "https://images.pexels.com/photos/3806249/pexels-photo-3806249.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
   
   about: {
-    title: "Craftsmanship Beyond Compare",
-    description: "At AutoCare, we combine traditional techniques with modern technology to deliver restorations that exceed expectations. Our team of master craftsmen have decades of experience bringing vehicles back to showroom condition.",
+    title: "Personal Attention, Professional Results",
+    description: "At AutoCare, we believe every vehicle deserves personal attention. As a small, family-owned business, we work directly with each customer to understand their vision and preferences. Our flexible approach means we can accommodate special requests and adapt our process to your specific needs - something larger operations simply cannot offer.",
     image: "https://images.pexels.com/photos/3807317/pexels-photo-3807317.jpeg?auto=compress&cs=tinysrgb&w=1280",
+    imageAlt: "Auto restoration craftsman at work",
+    yearsExperience: "25+",
     highlights: [
-      "25+ years of specialist experience",
-      "Award-winning restoration projects",
-      "Cutting-edge equipment and facilities",
-      "Personalized service for every client"
+      "Direct owner involvement in every project",
+      "Flexible approach to meet your specific needs",
+      "Personal consultation on all restoration decisions",
+      "Small business agility with professional results"
     ]
   },
   
@@ -180,15 +245,34 @@ const config = {
   ],
   
   contact: {
-    title: "Get In Touch",
-    description: "Contact us to discuss your restoration needs or schedule an assessment of your vehicle.",
-    phone: "+27 39 695 0122",
+    title: "Let's Talk About Your Vision",
+    description: "Schedule a personal consultation to discuss your restoration goals. We'll work with you to create a customized approach that reflects your preferences and budget.",
+    phone: "+27 64 163 7521",
     email: "info@autocare.co.za",
     address: "17 Marine Drive, Umtentweni, 4235, South Africa",
     mapLocation: {
       lat: -30.7196,
       lng: 30.4554,
       zoom: 15
+    },
+    form: {
+      labels: {
+        fullName: "Full Name",
+        email: "Email Address",
+        phone: "Phone Number",
+        phoneLabel: "Phone Number",
+        emailLabel: "Email Address",
+        location: "Our Location",
+        businessHours: "Business Hours",
+        serviceType: "Service Type",
+        message: "Message"
+      },
+      placeholders: {
+        message: "Tell us about your project..."
+      },
+      accessibility: {
+        mapTitle: "Google Maps"
+      }
     }
   },
   
@@ -200,12 +284,93 @@ const config = {
   
   footer: {
     copyrightText: `© ${new Date().getFullYear()} AutoCare. All rights reserved.`,
+    brandName: "PremierAuto",
+    brandNameParts: {
+      first: "Premier",
+      second: "Auto"
+    },
+    description: "Family-owned restoration specialists providing personalized service and flexible solutions. Every project receives direct owner attention and custom approaches tailored to your vision.",
+    sections: {
+      quickLinks: "Quick Links",
+      contactUs: "Contact Us"
+    },
     socialLinks: [
       { platform: "Facebook", url: "https://facebook.com/" },
       { platform: "Instagram", url: "https://instagram.com/" },
       { platform: "YouTube", url: "https://youtube.com/" }
     ]
+  },
+
+  accessibility: {
+    testimonials: {
+      previous: "Previous testimonial",
+      next: "Next testimonial",
+      goTo: "Go to testimonial"
+    }
   }
 };
 
+// Export the fallback configuration as default for synchronous access
+const config = fallbackConfig;
 export default config;
+
+// Export utility functions for accessing unified configuration
+export { fallbackConfig };
+
+/**
+ * Get the full unified configuration with CMS data (async)
+ */
+export async function getConfig() {
+  try {
+    const unifiedConfig = await getUnifiedConfig();
+    if (unifiedConfig.dataSource.cmsLoaded) {
+      console.log('Using unified configuration with CMS data');
+      return unifiedConfig;
+    } else {
+      console.warn('CMS data failed to load, using fallback configuration:', unifiedConfig.dataSource.errors);
+      return fallbackConfig;
+    }
+  } catch (error) {
+    console.error('Failed to load unified configuration, using fallback:', error);
+    return fallbackConfig;
+  }
+}
+
+/**
+ * Get the unified configuration synchronously (uses cached version)
+ */
+export function getConfigSync() {
+  return fallbackUnifiedConfig;
+}
+
+/**
+ * Check if CMS data is available (async)
+ */
+export async function isCMSDataAvailable(): Promise<boolean> {
+  try {
+    const unifiedConfig = await getUnifiedConfig();
+    return unifiedConfig.dataSource.cmsLoaded && unifiedConfig.dataSource.errors.length === 0;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Get CMS data loading status (async)
+ */
+export async function getCMSDataStatus() {
+  try {
+    const unifiedConfig = await getUnifiedConfig();
+    return {
+      loaded: unifiedConfig.dataSource.cmsLoaded,
+      errors: unifiedConfig.dataSource.errors,
+      lastUpdated: unifiedConfig.dataSource.lastUpdated
+    };
+  } catch (error) {
+    return {
+      loaded: false,
+      errors: [`Failed to get CMS data status: ${error}`],
+      lastUpdated: new Date()
+    };
+  }
+}
