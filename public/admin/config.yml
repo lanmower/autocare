@@ -2,13 +2,15 @@ backend:
   name: git-gateway
   branch: main
 
-# Pure GitHub Setup:
-# 1. Create Personal Access Token at: https://github.com/settings/tokens
-# 2. Token needs: repo, workflow scopes
-# 3. First login: Decap will prompt for token, stores in browser localStorage
-# 4. Changes auto-commit to GitHub and trigger GitHub Actions
+# LOCAL DEVELOPMENT ONLY:
+# For live site: Users edit locally with decap-server
+# 1. Run: npm run cms
+# 2. Edit at: http://localhost:5173/admin
+# 3. Changes auto-commit to Git
+# 4. Push to GitHub
+# 5. GitHub Actions auto-builds and deploys
 #
-# No external service required - fully GitHub-native!
+# No external service required - fully client-side + GitHub!
 
 media_folder: public/images
 public_folder: /images
