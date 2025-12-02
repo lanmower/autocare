@@ -5,8 +5,12 @@ backend:
   base_url: https://api.netlify.com
   auth_endpoint: auth
 
-# Note: local_backend is disabled for production.
-# Development: Use config-local.yml with local_backend: true and decap-server
+# GitHub OAuth Setup Required:
+# 1. Create OAuth App at: https://github.com/settings/developers
+# 2. Set Authorization callback URL to: https://api.netlify.com/auth/done
+# 3. After saving changes in Decap, they auto-commit and trigger GitHub Actions rebuild
+#
+# Local Development: Use config-local.yml with local_backend: true and decap-server
 # Production: Uses GitHub OAuth via Netlify's free auth service
 
 media_folder: public/images

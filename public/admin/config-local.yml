@@ -1,0 +1,161 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: public/images
+public_folder: /images
+
+site_url: http://localhost:5173
+display_url: http://localhost:5173
+
+collections:
+  # Site Configuration
+  - name: "config"
+    label: "Site Configuration"
+    files:
+      - name: "site-settings"
+        label: "Site Settings"
+        file: "src/data/config.ts"
+        fields:
+          - label: "Branding"
+            name: "branding"
+            widget: "object"
+            fields:
+              - { label: "Site Name", name: "name", widget: "string" }
+              - { label: "Slogan", name: "slogan", widget: "string" }
+              - label: "Name Parts"
+                name: "nameParts"
+                widget: "object"
+                fields:
+                  - { label: "First Part", name: "first", widget: "string" }
+                  - { label: "Second Part", name: "second", widget: "string" }
+          
+          - label: "Site Metadata"
+            name: "siteMetadata"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Keywords", name: "keywords", widget: "string" }
+              - { label: "Site URL", name: "siteUrl", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Address", name: "address", widget: "text" }
+              - { label: "Google Maps URL", name: "googleMapsUrl", widget: "string" }
+          
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "CTA Text", name: "ctaText", widget: "string" }
+              - { label: "CTA Link", name: "ctaLink", widget: "string" }
+              - { label: "Background Image", name: "backgroundImage", widget: "image" }
+          
+          - label: "About Section"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Image Alt Text", name: "imageAlt", widget: "string" }
+              - label: "Highlights"
+                name: "highlights"
+                widget: "list"
+                field: { label: "Highlight", name: "highlight", widget: "string" }
+          
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Address", name: "address", widget: "text" }
+              - label: "Map Location"
+                name: "mapLocation"
+                widget: "object"
+                fields:
+                  - { label: "Latitude", name: "lat", widget: "number", value_type: "float" }
+                  - { label: "Longitude", name: "lng", widget: "number", value_type: "float" }
+                  - { label: "Zoom Level", name: "zoom", widget: "number", value_type: "int" }
+
+  # Services Collection
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Service ID", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Wrench", value: "Wrench" }
+          - { label: "Tool", value: "Tool" }
+          - { label: "Spray", value: "Spray" }
+          - { label: "Trending Up", value: "TrendingUp" }
+        default: "Wrench"
+
+  # Process Steps Collection
+  - name: "process"
+    label: "Process Steps"
+    folder: "content/process"
+    create: true
+    slug: "{{fields.id}}-{{slug}}"
+    fields:
+      - { label: "Step ID", name: "id", widget: "number", value_type: "int" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+
+  # Portfolio Projects Collection
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Project ID", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Before Image", name: "beforeImage", widget: "image" }
+      - { label: "After Image", name: "afterImage", widget: "image" }
+
+  # Testimonials Collection
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "content/testimonials"
+    create: true
+    slug: "{{fields.id}}-{{slug}}"
+    fields:
+      - { label: "Testimonial ID", name: "id", widget: "number", value_type: "int" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Position", name: "position", widget: "string" }
+      - { label: "Content", name: "content", widget: "text" }
+      - label: "Rating"
+        name: "rating"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        max: 5
+        default: 5
+
+  # Business Hours Collection
+  - name: "business-hours"
+    label: "Business Hours"
+    folder: "content/business-hours"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Day", name: "day", widget: "string" }
+      - { label: "Hours", name: "hours", widget: "string" }

@@ -1,9 +1,26 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from './ui/Button';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 
 const HeroSection: React.FC = () => {
+  const { config, loading } = useConfig();
+
+  if (loading) {
+    return (
+      <section 
+        id="home" 
+        className="relative h-screen flex items-center justify-center bg-zinc-900"
+      >
+        <div className="animate-pulse text-center">
+          <div className="h-8 bg-zinc-700 rounded w-96 mx-auto mb-4"></div>
+          <div className="h-6 bg-zinc-700 rounded w-80 mx-auto mb-8"></div>
+          <div className="h-12 bg-zinc-700 rounded w-32 mx-auto"></div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section 
       id="home" 
@@ -43,7 +60,7 @@ const HeroSection: React.FC = () => {
             size="lg"
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Contact Us
+            {config.navigation.buttons.contact}
           </Button>
         </div>
       </div>
@@ -52,7 +69,7 @@ const HeroSection: React.FC = () => {
         <button 
           className="flex items-center justify-center w-12 h-12 rounded-full border border-zinc-700 bg-zinc-900/70 text-amber-500 hover:text-amber-400 transition-colors focus:outline-none"
           onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-          aria-label="Scroll down"
+          aria-label={config.labels.scrollDown}
         >
           <ChevronDown />
         </button>

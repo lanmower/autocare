@@ -6,15 +6,22 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager</title>
   <link rel="icon" type="image/x-icon" href="/autocare/favicon.ico" />
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    #cms-root { height: 100%; }
+  </style>
 </head>
 <body>
+  <div id="cms-root"></div>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
+    // Configure for production GitHub Pages
     window.CMS_CONFIG = {
       load_config_file: true,
       config_file_path: '/autocare/admin/config.yml'
     };
-    console.log('Decap CMS configured for GitHub Pages production');
+    console.log('Decap CMS loaded for GitHub Pages production');
+    console.log('Config path: /autocare/admin/config.yml');
   </script>
 </body>
 </html>

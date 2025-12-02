@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decap CMS Test - AutoCare</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .cms-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        h1 { color: #2563eb; margin: 0; }
+        .subtitle { color: #64748b; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚗 AutoCare CMS Test</h1>
+        <p class="subtitle">Testing Decap CMS configuration for the AutoCare auto body restoration website</p>
+    </div>
+    
+    <div id="nc-root" class="cms-container"></div>
+
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+        // Wait for CMS to load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, CMS available:', typeof window.CMS);
+            
+            if (typeof window.CMS !== 'undefined') {
+                // Initialize Decap CMS with test configuration
+                window.CMS.init({
+            config: {
+                backend: {
+                    name: 'test-repo'
+                },
+                
+                media_folder: 'public/images',
+                public_folder: '/images',
+                
+                collections: [
+                    // Site Configuration
+                    {
+                        name: 'config',
+                        label: 'Site Configuration',
+                        files: [
+                            {
+                                name: 'site',
+                                label: 'Site Settings',
+                                file: 'src/data/config.ts',
+                                fields: [
+                                    {
+                                        label: 'Branding',
+                                        name: 'branding',
+                                        widget: 'object',
+                                        fields: [
+                                            { label: 'Site Name', name: 'name', widget: 'string', default: 'AutoCare' },
+                                            { label: 'Slogan', name: 'slogan', widget: 'string', default: 'Professional Auto Body Restoration' }
+                                        ]
+                                    },
+                                    
+                                    {
+                                        label: 'Site Metadata',
+                                        name: 'siteMetadata',
+                                        widget: 'object',
+                                        fields: [
+                                            { label: 'Title', name: 'title', widget: 'string' },
+                                            { label: 'Description', name: 'description', widget: 'text' },
+                                            { label: 'Keywords', name: 'keywords', widget: 'string' },
+                                            { label: 'Phone', name: 'phone', widget: 'string' },
+                                            { label: 'Email', name: 'email', widget: 'string' },
+                                            { label: 'Address', name: 'address', widget: 'text' }
+                                        ]
+                                    },
+                                    
+                                    {
+                                        label: 'Hero Section',
+                                        name: 'hero',
+                                        widget: 'object',
+                                        fields: [
+                                            { label: 'Title', name: 'title', widget: 'string' },
+                                            { label: 'Subtitle', name: 'subtitle', widget: 'string' },
+                                            { label: 'Description', name: 'description', widget: 'text' },
+                                            { label: 'CTA Text', name: 'ctaText', widget: 'string' },
+                                            { label: 'Background Image', name: 'backgroundImage', widget: 'image' }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    
+                    // Services Collection
+                    {
+                        name: 'services',
+                        label: 'Services',
+                        folder: 'content/services',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                            { label: 'ID', name: 'id', widget: 'string' },
+                            { label: 'Title', name: 'title', widget: 'string' },
+                            { label: 'Description', name: 'description', widget: 'text' },
+                            { 
+                                label: 'Icon', 
+                                name: 'icon', 
+                                widget: 'select', 
+                                options: ['Wrench', 'Tool', 'Spray', 'TrendingUp'],
+                                default: 'Wrench'
+                            }
+                        ]
+                    },
+                    
+                    // Portfolio Projects
+                    {
+                        name: 'portfolio',
+                        label: 'Portfolio',
+                        folder: 'content/portfolio',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                            { label: 'ID', name: 'id', widget: 'string' },
+                            { label: 'Title', name: 'title', widget: 'string' },
+                            { label: 'Category', name: 'category', widget: 'string' },
+                            { label: 'Description', name: 'description', widget: 'text' },
+                            { label: 'Before Image', name: 'beforeImage', widget: 'image' },
+                            { label: 'After Image', name: 'afterImage', widget: 'image' }
+                        ]
+                    },
+                    
+                    // Testimonials
+                    {
+                        name: 'testimonials',
+                        label: 'Testimonials',
+                        folder: 'content/testimonials',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                            { label: 'ID', name: 'id', widget: 'number' },
+                            { label: 'Name', name: 'name', widget: 'string' },
+                            { label: 'Position', name: 'position', widget: 'string' },
+                            { label: 'Content', name: 'content', widget: 'text' },
+                            { 
+                                label: 'Rating', 
+                                name: 'rating', 
+                                widget: 'number',
+                                value_type: 'int',
+                                min: 1,
+                                max: 5,
+                                default: 5
+                            }
+                        ]
+                    },
+                    
+                    // Process Steps
+                    {
+                        name: 'process',
+                        label: 'Process Steps',
+                        folder: 'content/process',
+                        create: true,
+                        slug: '{{slug}}',
+                        fields: [
+                            { label: 'ID', name: 'id', widget: 'number' },
+                            { label: 'Title', name: 'title', widget: 'string' },
+                            { label: 'Description', name: 'description', widget: 'text' }
+                        ]
+                    }
+                ]
+            }
+        });
+
+                });
+
+                // Add some test data
+                window.CMS.registerPreviewTemplate('services', ({ entry, widgetFor, widgetsFor }) => {
+            return `
+                <div style="padding: 20px; font-family: sans-serif;">
+                    <h2>🔧 ${entry.getIn(['data', 'title'])}</h2>
+                    <p><strong>Icon:</strong> ${entry.getIn(['data', 'icon'])}</p>
+                    <p>${entry.getIn(['data', 'description'])}</p>
+                </div>
+            `;
+                });
+
+                window.CMS.registerPreviewTemplate('portfolio', ({ entry, widgetFor, widgetsFor }) => {
+            return `
+                <div style="padding: 20px; font-family: sans-serif;">
+                    <h2>🎨 ${entry.getIn(['data', 'title'])}</h2>
+                    <p><strong>Category:</strong> ${entry.getIn(['data', 'category'])}</p>
+                    <p>${entry.getIn(['data', 'description'])}</p>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <div>
+                            <strong>Before:</strong><br>
+                            <img src="${entry.getIn(['data', 'beforeImage'])}" style="max-width: 200px; border-radius: 4px;">
+                        </div>
+                        <div>
+                            <strong>After:</strong><br>
+                            <img src="${entry.getIn(['data', 'afterImage'])}" style="max-width: 200px; border-radius: 4px;">
+                        </div>
+                    </div>
+                </div>
+            `;
+                });
+
+                window.CMS.registerPreviewTemplate('testimonials', ({ entry, widgetFor, widgetsFor }) => {
+            const rating = entry.getIn(['data', 'rating']);
+            const stars = '⭐'.repeat(rating);
+            return `
+                <div style="padding: 20px; font-family: sans-serif; background: #f8f9fa; border-radius: 8px;">
+                    <h3>${entry.getIn(['data', 'name'])}</h3>
+                    <p style="color: #6c757d; margin: 0;">${entry.getIn(['data', 'position'])}</p>
+                    <div style="margin: 10px 0;">${stars} (${rating}/5)</div>
+                    <blockquote style="border-left: 3px solid #007bff; padding-left: 15px; margin: 15px 0;">
+                        "${entry.getIn(['data', 'content'])}"
+                    </blockquote>
+                </div>
+            `;
+                });
+
+                console.log('🚗 AutoCare Decap CMS Test Initialized!');
+                console.log('Collections configured for: Services, Portfolio, Testimonials, Process Steps, and Site Configuration');
+            } else {
+                console.error('CMS not available');
+            }
+        });
+    </script>
+</body>
+</html>

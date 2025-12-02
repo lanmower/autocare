@@ -1,10 +1,32 @@
 import React from 'react';
 import Container from './ui/Container';
 import SectionHeading from './ui/SectionHeading';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 import { BookmarkCheck } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
+  const { config, loading } = useConfig();
+
+  if (loading) {
+    return (
+      <section id="about" className="py-24 bg-zinc-900">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="animate-pulse">
+              <div className="h-8 bg-zinc-700 rounded w-3/4 mb-8"></div>
+              <div className="h-4 bg-zinc-700 rounded mb-4"></div>
+              <div className="h-4 bg-zinc-700 rounded mb-4"></div>
+              <div className="h-4 bg-zinc-700 rounded w-2/3"></div>
+            </div>
+            <div className="animate-pulse">
+              <div className="h-96 bg-zinc-700 rounded-lg"></div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section id="about" className="py-24 bg-zinc-900">
       <Container>
@@ -36,13 +58,13 @@ const AboutSection: React.FC = () => {
             <div className="relative">
               <img 
                 src={config.about.image} 
-                alt="Auto restoration craftsman at work"
+                alt={config.about.imageAlt}
                 className="rounded-lg shadow-xl w-full h-auto object-cover"
                 style={{ height: '500px' }}
               />
               <div className="absolute -bottom-6 -left-6 bg-zinc-800 rounded-lg p-6 shadow-xl">
-                <p className="text-4xl font-bold text-amber-500 font-montserrat">25+</p>
-                <p className="text-zinc-300 text-sm uppercase tracking-wider font-semibold">Years Experience</p>
+                <p className="text-4xl font-bold text-amber-500 font-montserrat">{config.about.yearsExperience}</p>
+                <p className="text-zinc-300 text-sm uppercase tracking-wider font-semibold">{config.labels.yearsExperience}</p>
               </div>
             </div>
           </div>

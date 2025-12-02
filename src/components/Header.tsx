@@ -2,22 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Wrench } from 'lucide-react';
 import Container from './ui/Container';
 import Button from './ui/Button';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 
 const Header: React.FC = () => {
+  const { config, loading } = useConfig();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'Services', href: '#services' },
-    { label: 'Process', href: '#process' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Contact', href: '#contact' }
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,14 +36,21 @@ const Header: React.FC = () => {
             <div className="flex items-center">
               <Wrench className="h-8 w-8 text-amber-500 mr-2" />
               <span className="font-montserrat font-bold text-xl text-white">
-                Auto<span className="text-amber-500">Care</span>
+                {loading ? (
+                  <span className="animate-pulse">Loading...</span>
+                ) : (
+                  <>
+                    {config.branding.nameParts.first}
+                    <span className="text-amber-500">{config.branding.nameParts.second}</span>
+                  </>
+                )}
               </span>
             </div>
           </a>
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item, index) => (
+            {!loading && config.navigation.items.map((item, index) => (
               <a 
                 key={index} 
                 href={item.href}
@@ -64,23 +63,27 @@ const Header: React.FC = () => {
           
           {/* Contact Button */}
           <div className="hidden lg:flex items-center">
-            <a 
-              href={`tel:${config.siteMetadata.phone}`}
-              className="flex items-center text-amber-500 hover:text-amber-400 transition-colors mr-6"
-            >
-              <Phone className="h-4 w-4 mr-2" />
-              <span>{config.siteMetadata.phone}</span>
-            </a>
-            <Button variant="primary" size="md">
-              Get a Quote
-            </Button>
+            {!loading && (
+              <>
+                <a 
+                  href={`tel:${config.siteMetadata.phone}`}
+                  className="flex items-center text-amber-500 hover:text-amber-400 transition-colors mr-6"
+                >
+                  <Phone className="h-4 w-4 mr-2" />
+                  <span>{config.siteMetadata.phone}</span>
+                </a>
+                <Button variant="primary" size="md">
+                  {config.navigation.buttons.quote}
+                </Button>
+              </>
+            )}
           </div>
           
           {/* Mobile Menu Button */}
           <button 
             className="lg:hidden text-white"
             onClick={toggleMenu}
-            aria-label="Toggle menu"
+            aria-label={loading ? "Menu" : config.navigation.buttons.toggleMenu}
           >
             {isMenuOpen ? (
               <X className="h-6 w-6" />
@@ -91,10 +94,10 @@ const Header: React.FC = () => {
         </div>
         
         {/* Mobile Navigation */}
-        {isMenuOpen && (
+        {isMenuOpen && !loading && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-zinc-900 border-t border-zinc-800 shadow-lg py-4">
             <div className="flex flex-col space-y-3 px-4">
-              {navItems.map((item, index) => (
+              {config.navigation.items.map((item, index) => (
                 <a 
                   key={index} 
                   href={item.href}
@@ -113,7 +116,7 @@ const Header: React.FC = () => {
                   <span>{config.siteMetadata.phone}</span>
                 </a>
                 <Button variant="primary" size="md" className="w-full">
-                  Get a Quote
+                  {config.navigation.buttons.quote}
                 </Button>
               </div>
             </div>

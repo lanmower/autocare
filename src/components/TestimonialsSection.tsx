@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Container from './ui/Container';
 import SectionHeading from './ui/SectionHeading';
-import config from '../data/config';
+import { useConfig } from '../hooks/useConfig';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
 const TestimonialsSection: React.FC = () => {
+  const { config, loading } = useConfig();
   const [activeIndex, setActiveIndex] = useState(0);
   const testimonials = config.testimonials;
 
@@ -20,6 +21,33 @@ const TestimonialsSection: React.FC = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <section id="testimonials" className="py-24 bg-gradient-to-b from-zinc-900 to-zinc-800">
+        <Container>
+          <div className="animate-pulse text-center mb-16">
+            <div className="h-8 bg-zinc-700 rounded w-1/3 mx-auto mb-4"></div>
+            <div className="h-4 bg-zinc-700 rounded w-1/2 mx-auto"></div>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-zinc-800/50 rounded-lg p-8">
+              <div className="flex space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="w-5 h-5 bg-zinc-700 rounded"></div>
+                ))}
+              </div>
+              <div className="space-y-4">
+                <div className="h-6 bg-zinc-700 rounded"></div>
+                <div className="h-6 bg-zinc-700 rounded w-4/5"></div>
+                <div className="h-6 bg-zinc-700 rounded w-3/5"></div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section id="testimonials" className="py-24 bg-gradient-to-b from-zinc-900 to-zinc-800 relative overflow-hidden">
       {/* Background decoration */}
@@ -31,8 +59,8 @@ const TestimonialsSection: React.FC = () => {
 
       <Container className="relative z-10">
         <SectionHeading 
-          title="Client Testimonials" 
-          subtitle="What our clients say about our restoration work"
+          title={config.sections.testimonials.title}
+          subtitle={config.sections.testimonials.subtitle}
         />
         
         <div className="max-w-4xl mx-auto">
@@ -81,7 +109,7 @@ const TestimonialsSection: React.FC = () => {
               <button 
                 onClick={handlePrev}
                 className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-amber-500 hover:border-amber-500 transition-colors"
-                aria-label="Previous testimonial"
+                aria-label={config.accessibility.testimonials.previous}
               >
                 <ChevronLeft size={20} />
               </button>
@@ -96,7 +124,7 @@ const TestimonialsSection: React.FC = () => {
                         ? 'bg-amber-500' 
                         : 'bg-zinc-700 hover:bg-zinc-600'
                     }`}
-                    aria-label={`Go to testimonial ${index + 1}`}
+                    aria-label={`${config.accessibility.testimonials.goTo} ${index + 1}`}
                   ></button>
                 ))}
               </div>
@@ -104,7 +132,7 @@ const TestimonialsSection: React.FC = () => {
               <button 
                 onClick={handleNext}
                 className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-amber-500 hover:border-amber-500 transition-colors"
-                aria-label="Next testimonial"
+                aria-label={config.accessibility.testimonials.next}
               >
                 <ChevronRight size={20} />
               </button>
