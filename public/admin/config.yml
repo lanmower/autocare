@@ -1,23 +1,20 @@
 backend:
-  name: github
-  repo: lanmower/autocare
+  name: git-gateway
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
 
-# GitHub OAuth Setup Required:
-# 1. Create OAuth App at: https://github.com/settings/developers
-# 2. Set Authorization callback URL to: https://api.netlify.com/auth/done
-# 3. After saving changes in Decap, they auto-commit and trigger GitHub Actions rebuild
+# Pure GitHub Setup:
+# 1. Create Personal Access Token at: https://github.com/settings/tokens
+# 2. Token needs: repo, workflow scopes
+# 3. First login: Decap will prompt for token, stores in browser localStorage
+# 4. Changes auto-commit to GitHub and trigger GitHub Actions
 #
-# Local Development: Use config-local.yml with local_backend: true and decap-server
-# Production: Uses GitHub OAuth via Netlify's free auth service
+# No external service required - fully GitHub-native!
 
 media_folder: public/images
 public_folder: /images
 
-site_url: https://autocare.co.za
-display_url: https://autocare.co.za
+site_url: https://lanmower.github.io/autocare
+display_url: https://lanmower.github.io/autocare
 
 collections:
   # Site Configuration
