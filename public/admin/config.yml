@@ -2,15 +2,16 @@ backend:
   name: git-gateway
   branch: main
 
-# LOCAL DEVELOPMENT ONLY:
-# For live site: Users edit locally with decap-server
-# 1. Run: npm run cms
-# 2. Edit at: http://localhost:5173/admin
-# 3. Changes auto-commit to Git
-# 4. Push to GitHub
+# LIVE EDITING WITH GITHUB:
+# User provides GitHub Personal Access Token to edit and commit directly
+# 1. Visit: https://lanmower.github.io/autocare/admin/decap.html
+# 2. Provide GitHub token when prompted
+# 3. Edit content
+# 4. Changes auto-commit to GitHub
 # 5. GitHub Actions auto-builds and deploys
 #
-# No external service required - fully client-side + GitHub!
+# Token needed: https://github.com/settings/personal-access-tokens/new
+# Scopes: repo, workflow
 
 media_folder: public/images
 public_folder: /images
