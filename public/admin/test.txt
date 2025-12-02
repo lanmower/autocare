@@ -1,0 +1,2 @@
+Admin files deployment test
+This file verifies that public/admin files are being deployed to GitHub Pages.
